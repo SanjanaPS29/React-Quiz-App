@@ -1,43 +1,77 @@
 import React, { useEffect, useState } from "react";
 import { Container } from "../styles/Container.style";
 import { OptionStyle, ListStyle, HiddenStyle } from "../styles/Question.style";
+import { questions } from "../../quiz";
 
-function Question(props) {
+function Question({data,score, setScore, setStop,setQuestionNumber,questionNumber}) {
   const [correct, setCorrect] = useState();
-  const [timer, SetTimer] = useState(false);
+  // const [stop, setStop] = useState(false);
   const [show,setShow] = useState(true);
+ const [question,setQuestion]=useState(null);
+//  const {data, setTimeout,setQuestionNumber,questionNumber} = props;
 
-  useEffect(() => {
-    let i=5;
-   setTimeout(() => {
-    fun(i);
-    i++;
-    }, i*1000);
-  }, []);
-
-function fun(i){
-  setShow(!show);
-}
+  useEffect(()=>{
+setQuestion(data[questionNumber-1]);
+},[data, questionNumber]);
 
 
+const delay=(duration,callback) =>{
+setTimeout(()=>{
+  callback();
+},duration);
+
+};
 
   const checkAnswer = (opt) => {
     const choose = opt.option;
 
-    if (choose == answer) {
-      setCorrect("Correct!");
-      getScore();
-    } else {
-      setCorrect("Incorrect!");
+    if(data[questionNumber]==null)
+    {
+      setTimeout(()=>{
+        setStop(true);  
+      },300)
     }
-  };
-  const { questionText, options, answer, getScore } = props;
+    else if(choose == question.answer) {
+      setCorrect("Correct!");
+      setScore(score+1);
+      
+      setTimeout(()=>{
+       setQuestionNumber((prev)=>prev+1);
+     
+      setCorrect(null);
+      },600);
+    }else {
+      setCorrect("Incorrect!");
+      
+    
+    }
+    // setTimeout(()=>{
+    // console.log("answer")
+    // },3000)
+    // delay(2000,()=>
+    // {
+    //   if(correct=="Correct!"){
+    //     console.log("sdd")
+    //   }
+    //   // else{
+    //   //   // setStop(true)
+    //   // }
+    // });
+    };
+      // setTimeout(()=>{
+      //     console.log("answer")
+  
+      // },3000)
+   
+
   return (
-    <HiddenStyle  style={{ display: show ? "block" : "none" }} >
+    // <HiddenStyle  style={{ display: show ? "block" : "none" }} >
+    
       <Container>
-        <h2>{questionText}</h2>
+        
+        <h2>{question?.questionText}</h2>
         <ListStyle>
-          {options.map((option, index) => (
+          {question?.options.map((option, index) => (
             <OptionStyle key={index} onClick={(e) => checkAnswer({ option })}>
               {option}
             </OptionStyle>
@@ -46,7 +80,7 @@ function fun(i){
           <p>{correct}</p>
         </ListStyle>
       </Container>
-    </HiddenStyle>
+    // </HiddenStyle>
   );
 }
 
@@ -80,3 +114,24 @@ export default Question;
 //   }
 //   return () => clearInterval(interval);
 // }, [timer]);
+
+
+
+
+
+
+// let timer=0;
+// let interval=0;
+//   useEffect(() => {
+//   setInterval(countDown,1000);
+//   }, []);
+
+// const countDown= () =>{
+// if(timer === 20){
+//   clearInterval(interval);
+// }
+// else{
+//   timer++;
+//   console.log(timer);
+// }
+// }

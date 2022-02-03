@@ -1,10 +1,11 @@
 import styled from "styled-components";
 
 export const Container = styled.div`
-  width: 650px;
-  height: 260px;
+  // width: 650px;
+  // height: 260px;
+  margin: 50px 400px;
   border: 3px solid #d5dbd6;
-  margin: 60px auto;
+
   border-radius: 25px;
   padding: 40px;
   box-shadow: 8px 5px hsl(0deg 2% 81% / 36%), 10px 5px hsl(0deg 13% 82% / 0%);
@@ -27,6 +28,11 @@ margin-bottom:5px;
     border: none;
     padding: 10px;
     cursor:pointer;
+    margin:10px;
+  }
+
+  label{
+    margin:auto 5px;
   }
 `;
 

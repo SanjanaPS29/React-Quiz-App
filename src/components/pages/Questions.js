@@ -1,38 +1,72 @@
 import React, { useState, useEffect } from "react";
 import { questions } from "../../quiz";
+import { Time } from "../styles/Header.style";
 import Question from "./Question";
+import Result from "./Result";
+import Timer from "./Timer";
+import ViewHighscores from "./ViewHighscores";
 
 function Questions() {
-  // const [timer, SetTimer] = useState(false);
-  // const [counter, setCounter] = useState(0);
-  const [result, setResult] = useState(0);
 
-  // useEffect(() => {
-  //   let interval;
-  //   if (timer) {
-  //     interval = setInterval(() => {
-  //       console.log("In setInterval");
-  //     }, 1000);
-  //   } else {
-  //     clearInterval(interval);
-  //   }
-  //   return () => clearInterval(interval);
-  // }, [timer]);
+  const [score, setScore] = useState(0);
+  const [questionNumber,setQuestionNumber]=useState(1);
+  const [stop, setStop] = useState(false);
 
   const handleScore = () => {
-    setResult(result + 1);
+    setScore(score + 1);
   };
 
   return (
-    <div>
-      <p>{result}</p>
-      {questions.map((question, index) => (
+    <div> 
+      {/* <Time>Time: <Timer setStop={setStop} questionNumber={questionNumber} /> </Time> */}
+      <p>{score}</p>
+      { stop?(
+       <Result/>
+      ) : (
+        <>
+          {
+        <Question data={questions} questionNumber={questionNumber} score={score} setScore={setScore} setStop={setStop} setQuestionNumber={setQuestionNumber} />
+      }
+        </>
+      )  }
      
-        <Question {...question} key={index} getScore={handleScore} />
-       
-      ))}
     </div>
   );
 }
 
 export default Questions;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+{/* <div>
+<p>{result}</p>
+{questions.map((question, index) => (
+
+  <Question {...question} key={index} getScore={handleScore} />
+ 
+))}
+</div>
+); */}

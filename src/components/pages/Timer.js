@@ -1,20 +1,20 @@
 import React, { useState } from 'react';
 import { useEffect } from 'react';
 
- function Timer() {
-  const [count,setCount]=useState(1)
+ function Timer({setStop,questionNumber}) {
+  const [timer,setTimer]=useState(1000);
   
 useEffect(() =>{
-
-const Interval=setInterval(() =>{
-    setCount(count+1)
+  if(timer === 0) return setStop(true);
+const interval=setInterval(() =>{
+    setTimer((prev)=>prev-1);
 },1000)
-},[])
+},[setStop,timer]);
 
-  return (
-  <div>
-     <p> sdds{count}</p>
-  </div>);
-}
+useEffect(()=>{
+  setTimer(50);
+},[questionNumber]);
 
+  return timer;
+ }
 export default Timer;

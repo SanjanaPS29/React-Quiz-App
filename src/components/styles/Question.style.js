@@ -9,7 +9,6 @@ margin:5px 0px;
 list-style:none;
 cursor:pointer;
 
-
 `
 export const ListStyle=styled.ul`
 padding:0px;

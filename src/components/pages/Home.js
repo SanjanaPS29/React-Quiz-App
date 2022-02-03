@@ -1,23 +1,26 @@
 import React, { useState, useEffect } from "react";
 import { Container } from "../styles/Container.style";
 import Questions from "./Questions";
+import { useNavigate } from "react-router-dom";
 
 function Home() {
   const [show, setShow] = useState();
-
+  const navigate = useNavigate();
   const handleClick = (e) => {
-    console.log("ternary");
-    setShow(!show);
-    console.log(show);
+    // console.log("ternary");
+    // setShow(!show);
+    // console.log(show);
+
+    navigate("questions");
   };
 
-  useEffect(() => {
-    setShow(true);
-  }, []);
+  // useEffect(() => {
+  //   setShow(true);
+  // }, []);
 
   return (
     <div>
-      <Container style={{ display: show ? "block" : "none" }}>
+      <Container>
         <h2>Coding Quiz Challenge</h2>
         <p>
           Try to answer to following code-related questions within the time
@@ -29,9 +32,9 @@ function Home() {
         </p>
         <button onClick={(e) => handleClick(e)}>Start Quiz</button>
       </Container>
-      <div style={{ display: show ? "none" : "block" }}>
+      {/* <div style={{ display: show ? "none" : "block" }}>
         <Questions />
-      </div>
+      </div> */}
     </div>
   );
 }

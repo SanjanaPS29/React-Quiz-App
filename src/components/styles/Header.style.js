@@ -11,12 +11,16 @@ padding:0px 30px;
 `
 
 export const View=styled.div` 
-
+color:#fff;
+text-decoration: none;
 `
 
 export const Time=styled.div` 
 flex-direction:right;
+`
 
-
+export const LinkStyle=styled.div`
+color:#fff;
+text-decoration: none;
 `
 
