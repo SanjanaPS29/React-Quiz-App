@@ -1,50 +1,64 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState,useContext } from "react";
 import { Container } from "../styles/Container.style";
 import { OptionStyle, ListStyle, HiddenStyle } from "../styles/Question.style";
 import { questions } from "../../quiz";
 
-function Question({data,score, setScore, setStop,setQuestionNumber,questionNumber}) {
+
+function Question({
+  data,
+  score,
+  setScore,
+  setStop,
+  setQuestionNumber,
+  questionNumber,
+
+}) {
+
+ 
   const [correct, setCorrect] = useState();
   // const [stop, setStop] = useState(false);
-  const [show,setShow] = useState(true);
- const [question,setQuestion]=useState(null);
-//  const {data, setTimeout,setQuestionNumber,questionNumber} = props;
+  const [show, setShow] = useState(true);
+  const [question, setQuestion] = useState(null);
+  //  const {data, setTimeout,setQuestionNumber,questionNumber} = props;
 
-  useEffect(()=>{
-setQuestion(data[questionNumber-1]);
-},[data, questionNumber]);
+  useEffect(() => {
+    setQuestion(data[questionNumber - 1]);
+  }, [data, questionNumber]);
 
-
-const delay=(duration,callback) =>{
-setTimeout(()=>{
-  callback();
-},duration);
-
-};
+  const delay = (duration, callback) => {
+    setTimeout(() => {
+      callback();
+    }, duration);
+  };
 
   const checkAnswer = (opt) => {
     const choose = opt.option;
 
-    if(data[questionNumber]==null)
-    {
-      setTimeout(()=>{
-        setStop(true);  
-      },300)
-    }
-    else if(choose == question.answer) {
+    if (data[questionNumber] == null) {
+      const t = setTimeout(() => {
+        setStop(true);
+      }, 300);
+      // return()=>{
+      //   clearTimeout(t);
+      // }
+      // clearTimeout(t);
+    } else if (choose == question.answer) {
       setCorrect("Correct!");
-      setScore(score+1);
-      
-      setTimeout(()=>{
-       setQuestionNumber((prev)=>prev+1);
-     
-      setCorrect(null);
-      },600);
-    }else {
+      setScore(score + 1);
+
+      const ti=setTimeout(() => {
+        setQuestionNumber((prev) => prev + 1);
+        setCorrect(null);
+      }, 600);
+      // return clearTimeout(ti);
+    } else {
+    //  reduceTime()()
+
+   
       setCorrect("Incorrect!");
-      
-    
+     
     }
+
     // setTimeout(()=>{
     // console.log("answer")
     // },3000)
@@ -57,51 +71,33 @@ setTimeout(()=>{
     //   //   // setStop(true)
     //   // }
     // });
-    };
-      // setTimeout(()=>{
-      //     console.log("answer")
-  
-      // },3000)
-   
+  };
+ 
+  // setTimeout(()=>{
+  //     console.log("answer")
+
+  // },3000)
 
   return (
     // <HiddenStyle  style={{ display: show ? "block" : "none" }} >
-    
-      <Container>
-        
-        <h2>{question?.questionText}</h2>
-        <ListStyle>
-          {question?.options.map((option, index) => (
-            <OptionStyle key={index} onClick={(e) => checkAnswer({ option })}>
-              {option}
-            </OptionStyle>
-          ))}
-          <hr />
-          <p>{correct}</p>
-        </ListStyle>
-      </Container>
+
+    <Container>
+      <h2>{question?.questionText}</h2>
+      <ListStyle>
+        {question?.options.map((option, index) => (
+          <OptionStyle key={index} onClick={(e) => checkAnswer({ option })}>
+            {option}
+          </OptionStyle>
+        ))}
+        <hr />
+        <p>{correct}</p>
+      </ListStyle>
+    </Container>
     // </HiddenStyle>
   );
 }
 
 export default Question;
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 // useEffect(() => {
 //   let interval;
@@ -114,11 +110,6 @@ export default Question;
 //   }
 //   return () => clearInterval(interval);
 // }, [timer]);
-
-
-
-
-
 
 // let timer=0;
 // let interval=0;
